@@ -4,11 +4,10 @@ export const ItemList =({productos}) => {
 
     return(
         <div className="catalogo_contenedor">
-            <h2>Item List Container</h2>
+            <h2>Productos</h2>
             <hr></hr>
-            <p>hola</p>
 
-            <div>
+            <div className="row col-10">
                 {
                     productos.map((prod) => <ItemCard key={prod.id} item={prod}/>)                    
                 }

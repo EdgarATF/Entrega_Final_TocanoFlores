@@ -5,7 +5,7 @@ export const CartWidget  = () => {
     return (
         <div>
             
-            <button color='#0000FF'>
+            <button type="button" href="#" className='btn'>
                 < img src= '/cart.png' height={40} width={40}/> 0
             </button>
 

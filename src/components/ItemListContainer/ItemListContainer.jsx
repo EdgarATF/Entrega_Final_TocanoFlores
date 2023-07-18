@@ -3,26 +3,18 @@ import './ItemListContainer.css'
 import { useEffect } from 'react'
 import { pedirDatos } from '../../helpers/pedirDatos'
 import { ItemList } from '../ItemList/ItemList'
+import { useProductos } from '../../hooks/useProductos'
+import { useParams } from 'react-router-dom'
 
 
 
- const ItemListContainer = ({item}) =>{
-    const [productos, setProductos] = useState([])
-  
-
-    useEffect(()=> {
-        pedirDatos()
-            .then((res)=>{
-                setProductos(res)
-            })
-            .catch((error)=>{
-                setProductos(error)
-            })
-        },[])
-
-
+ const ItemListContainer = () =>{
+    const {productos} = useProductos()
+    const {categoryId} = useParams()
+    console.log(categoryId)
+    
     return(
-        <div>
+        <div className= "container">
             <ItemList productos = {productos}/>
         </div>
     )
