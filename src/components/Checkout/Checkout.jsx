@@ -4,7 +4,7 @@ import { db } from "../../firebase/config"
 import { addDoc, collection,updateDoc,doc, getDoc, writeBatch, where, documentId, query, getDocs } from "firebase/firestore"
 import { Link, Navigate } from "react-router-dom"
 import { Formik, Form, Field, ErrorMessage } from "formik"
-import { SummaryTable } from "../summarytable/summaryTable"
+import { SummaryTable } from "../SummaryTable/SummaryTable"
 import * as Yup from "yup"
 
 
