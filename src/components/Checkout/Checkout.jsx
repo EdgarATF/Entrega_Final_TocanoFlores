@@ -4,6 +4,7 @@ import { db } from "../../firebase/config"
 import { addDoc, collection,updateDoc,doc, getDoc, writeBatch, where, documentId, query, getDocs } from "firebase/firestore"
 import { Link, Navigate } from "react-router-dom"
 import { Formik, Form, Field, ErrorMessage } from "formik"
+import { SummaryTable } from "../summaryTable/summaryTable"
 import * as Yup from "yup"
 
 
@@ -30,8 +31,12 @@ const schema = Yup.object().shape({
 export const Checkout = () => {
     const { cart, totalCompra, vaciarCarrito } = useContext(CartContext)
     
+    
     const [loading, setLoading] = useState(false)
     const [orderId, setOrderId] = useState(null)
+    const [summary, setSummary] = useState([])
+    const [total, setTotal] = useState(0)
+    
     
     const handleSubmit = async (values) => {
         setLoading(true)
@@ -50,6 +55,7 @@ export const Checkout = () => {
         const q = query(productosRef, where( documentId(), "in", cart.map(item => item.id) ))
         const productos = await getDocs(q)
         const outOfStock = []
+        const summaryList = []
 
         
         productos.docs.forEach((doc) => {
@@ -60,8 +66,10 @@ export const Checkout = () => {
                 batch.update(doc.ref, {
                     count: count - item.cantidad
                 })
-                sumary.push(item)
-                console.log(sumary)
+                summaryList.push(item)
+                setSummary(summaryList)
+
+                
             } else {
                 outOfStock.push(item)
             }
@@ -70,12 +78,11 @@ export const Checkout = () => {
         if (outOfStock.length === 0) {
             await batch.commit()
             const doc = await addDoc(ordersRef, orden)
-
+            setTotal(totalCompra())
             vaciarCarrito()
             setOrderId(doc.id)
         } else {
             alert("Some items are out of stock")
-            console.log(outOfStock)
         }
         
         setLoading(false)
@@ -83,13 +90,18 @@ export const Checkout = () => {
 
     if (orderId) {
         return (
-            <div className="container my-5">
+            <div className="container sm">
                 <h2 className="text-4xl">Thanks for shopping!</h2>
                 <hr/>
                 <h2>Order summary</h2>
                 <p>Your number ID is: <strong>{orderId}</strong></p>
 
-                <Link to="/">Return</Link>
+                {
+                    summary.map((prod) => <SummaryTable key={prod.id} item={prod}/>)       
+                }
+                <p><strong>Total:{total}</strong></p>
+
+                <Link to="/"><button className="btn btn-info">Return</button></Link>
             </div>
         )
     }

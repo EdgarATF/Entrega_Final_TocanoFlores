@@ -35,7 +35,6 @@ import { db } from '../../firebase/config'
             .finally(()=>setLoading(false))
 
         }, [categoryId])
-        console.log(productos)
 
 
 
