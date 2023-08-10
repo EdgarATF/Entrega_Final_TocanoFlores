@@ -7,12 +7,13 @@ export const Header = () => {
     return(
         <header className="header">
             <div className="header_container"> 
-                <h1 className="header_logo">Music World</h1>
+                <Link className="header_logo" to="/">Store 4 All</Link>
 
                 <nav className="navbar">
-                    <Link className="navbar_link" to="/productos">Novevdades</Link>
-                    <Link className="navbar_link" to="/albums">Top</Link>
-                    <Link className="navbar_link" to="/pokemon">Descubre</Link>
+                    <Link className="navbar_link" to="/productos/electronics">Electronics</Link>
+                    <Link className="navbar_link" to="/productos/jewelery">Jewelery</Link>
+                    <Link className="navbar_link" to="/productos/men's clothing">Men's Clothing</Link>
+                    <Link className="navbar_link" to="/productos/women's clothing">Women's Clothing</Link>
 
                 </nav>
                 <CartWidget/>

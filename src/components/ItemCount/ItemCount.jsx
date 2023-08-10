@@ -1,23 +1,23 @@
 
-export const ItemCount = ({counter,setCounter,agregar}) => {
+export const ItemCount = ({max,cantidad,setCantidad,agregar}) => {
 
 
     const handleRestar =()=>{
-        counter > 1 && setCounter(counter - 1)
+        cantidad > 1 && setCantidad(cantidad - 1)
     }
 
     const handleSumar =()=> {
-        setCounter(counter + 1)
+        cantidad < max && setCantidad(cantidad + 1)
     }
 
 
     return(
         <div>
-            <button onClick={handleRestar} className="btn btn-outline-primary">-</button>
-            <span className="mx-2">{counter}</span>
-            <button onClick={handleSumar} className="btn btn-primary">+</button>
+            <button onClick={handleRestar} className="btn btn-outline-primary" disabled={cantidad === 1}>-</button>
+            <span className="mx-2">{cantidad}</span>
+            <button onClick={handleSumar} className="btn btn-primary" disabled={cantidad === max}>+</button>
             <br/>
-            <button onClick={agregar} className="btn btn-succes my-2">Agregar</button>
+            <button onClick={agregar} className="btn btn-success my-2">Add</button>
         </div>
     )
 }
